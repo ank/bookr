@@ -23,33 +23,50 @@
 	    </div>
 
 	    <ul id="home" title="Bookr" selected="true">
-	        <li><a href="#titles">Titles</a></li>
-
+	        <li><a href="#files">Files</a></li>
+			<li><a href="#titles">Titles</a></li>
 	        <li><a href="#settings">Settings</a></li>
-	        <li><a href="stats.php">Stats</a></li>
-	        <li><a href="/bookr/about" target="_self">About</a></li>
-	        <li>Nothing</li>
+	        <li><a href="/bookr/stats">Stats</a></li>
 	    </ul>
 	
-		<ul id="titles" title="Titles">
+		<ul id="files" title="Files">
 			<% @books.each do |book| %>
 	        <li>
-	        	<a href="#<%= book[:name] %>"><%= book[:name] %></a>
+	        	<%= file_link(book[:path]) %>
 	        </li>
 			<% end %>
 	    </ul>
+		
+		<ul id="titles" title="Titles">
+			<% @books.each do |book| %>
+				<li><a href="<%= book[:detailpageurl] %>"><%= book[:title] %></a></li>
+			<% end %>
+		</ul>
 	
-		<form id="searchForm" class="dialog" action="/bookr/search">
+		<form action="/bookr/search" method="POST" id="searchForm" class="dialog">
 	        <fieldset>
 	            <h1>Book Search</h1>
 	            <a class="button leftButton" type="cancel">Cancel</a>
 	            <a class="button blueButton" type="submit">Search</a>
 
-	            <label>Title:</label>
-	            <input id="title" type="text" name="query"/>
+	            <label>File:</label>
+	            <input type="text" name="q" id="q"/>
 
+				<label>Title:</label>
+				<input type="text" name="title" />
 	        </fieldset>
 	    </form>
+	
+		<div id="settings" title="Settings" class="panel">
+
+	        <h2>Amazon</h2>
+	        <fieldset>
+	            <div class="row">
+	                <label>Access Key</label>
+	                <input type="text" name="aws_access_key_id" value=""/>
+	            </div>
+	        </fieldset>
+	    </div>
 	</div>
 </body>
 </html>

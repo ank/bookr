@@ -9,23 +9,42 @@ Dir["#{APP_ROOT}/lib/**/*.rb"].each { |lib| require lib }
 
 set :root, APP_ROOT
 
+post '/search' do
+  if params[:q]
+    query = params[:q]
+    @books = DB[:books].
+    filter(:name.ilike("%#{query}%")).
+    filter(:ext => "pdf").all
+  elsif params[:title]
+    query = params[:title]
+    @books = DB[:books].
+    filter(:title.ilike("%#{query}%")).
+    filter(:ext => "pdf").all
+  else
+    error "No query"
+  end
+  erb :results
+end
+
 get '/show/:id' do
     @book = DB[:books].filter(:id => params[:id]).first
     erb :book
 end
 
-get '/search/:queury' do
-  query = params[:query].to_s
-  @books = DB[:books].filter(:name.like(query))
-  erb :results
-end
-
-get '/about' do
-  'Here is some info'
+get '/stats' do
+  @stats ||= {
+    :total => DB[:books].all.count,
+    :pdfs => DB[:books].filter(:ext => 'pdf').all.count,
+    :chms => DB[:books].filter(:ext => 'chm').all.count
+  }
+  
+  erb :stats
 end
 
 get '/' do
-  @books = DB[:books].all
+  @books = DB[:books].order(:name).
+  filter(:ext => "pdf").filter(~{:asin => nil}).all
+  
   erb :index
 end
 
@@ -33,12 +52,12 @@ helpers do
 
   alias_method :h, :escape_html
 
-  def file_link(file)
-    file = file.sub("/mnr/arr/")
+  def file_link(path)
+    file = path.sub("/mnt/arr","")
     filename = Pathname.new(file).basename
-    "<li><a href='#{file}' target='_self'>#{filename}</a></li>"
+    "<a href='#{file}' target='_self'>#{filename}</a>"
   end
-
+  
 end
 
 

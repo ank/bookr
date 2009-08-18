@@ -1,4 +1,6 @@
-<ul title="Search Results (<%= @books.count %>)">
+<%= "No Results" if @books.count == 0 %>
+<ul title="Results (<%= @books.count %>)">
+	
 	<% @books.each do |book| %>
 		<li><a href="#"><%= book[:name] %></a></li>
 	<% end %>
