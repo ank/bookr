@@ -1,0 +1,21 @@
+<ul id="stats" title="Stats">
+    <li><a href="#files">Files</a></li>
+</ul>
+    
+<div id="files" title="Files" class="panel">
+    <h2>Totals</h2>
+    <fieldset>
+        <div class="row">
+            <label>All</label>
+            <span><%= @stats[:total] %></span>
+        </div>
+        <div class="row">
+            <label>PDF</label>
+            <span><%= @stats[:pdfs] %></span>
+        </div>
+        <div class="row">
+            <label>CHM</label>
+            <span><%= @stats[:chms] %></span>
+        </div>
+    </fieldset>
+</div>
