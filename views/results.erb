@@ -1,7 +1,17 @@
-<%= "No Results" if @books.count == 0 %>
-<ul title="Results (<%= @books.count %>)">
-	
-	<% @books.each do |book| %>
-		<li><a href="#"><%= book[:name] %></a></li>
-	<% end %>
-</ul>
+<div>
+	<div class="toolbar">
+		<h1><%= "Results (#{@books.count})" %></h1>
+		<a class="back button" href="#home">Library</a>
+	</div>
+
+	<%= "No Results" if @books.count == 0 %>
+
+	<ul class="edgetoedge">
+		<% @books.each do |book| %>
+		<li>
+			<%= file_link(book[:path]) %>
+		</li>
+		<% end %>
+	</ul>
+
+</div>

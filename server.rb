@@ -12,12 +12,12 @@ set :root, APP_ROOT
 post '/search' do
   if params[:q]
     query = params[:q]
-    @books = DB[:books].
+    @books ||= DB[:books].
     filter(:name.ilike("%#{query}%")).
     filter(:ext => "pdf").all
   elsif params[:title]
     query = params[:title]
-    @books = DB[:books].
+    @books ||= DB[:books].
     filter(:title.ilike("%#{query}%")).
     filter(:ext => "pdf").all
   else
@@ -32,25 +32,28 @@ get '/show/:id' do
 end
 
 get '/stats' do
-  @stats ||= {
-    :total => DB[:books].all.count,
-    :pdfs => DB[:books].filter(:ext => 'pdf').all.count,
-    :chms => DB[:books].filter(:ext => 'chm').all.count
-  }
-  
+  @stats = get_stats()
   erb :stats
 end
 
 get '/' do
-  @books = DB[:books].order(:name).
+  @stats = get_stats()
+  @books ||= DB[:books].order(:name).
   filter(:ext => "pdf").filter(~{:asin => nil}).all
-  
   erb :index
 end
 
 helpers do
 
   alias_method :h, :escape_html
+  
+  def get_stats
+    stats ||= {
+      :total => DB[:books].all.count,
+      :pdfs => DB[:books].filter(:ext => 'pdf').all.count,
+      :chms => DB[:books].filter(:ext => 'chm').all.count
+    }
+  end
 
   def file_link(path)
     file = path.sub("/mnt/arr","")
