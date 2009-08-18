@@ -1,0 +1,5 @@
+<ul title="Search Results (<%= @books.count %>)">
+	<% @books.each do |book| %>
+		<li><a href="#"><%= book[:name] %></a></li>
+	<% end %>
+</ul>

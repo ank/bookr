@@ -1,0 +1,6 @@
+<table border="0" cellspacing="5" cellpadding="5">
+<% @book.each_pair do |k,v| %>
+	<tr><td><strong><%= k.to_s %></strong></td>
+	<td><%= v %></td>
+<% end %>
+</table>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>books</title>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<link rel="apple-touch-icon" href="/bookr/iui/iui-logo-touch-icon.png" />
+	<meta name="apple-touch-fullscreen" content="YES" />
+	<style type="text/css" media="screen">@import "/bookr/iui/iui.css";</style>
+	<script type="application/x-javascript" src="/bookr/iui/iui.js"></script>
+	
+	<script type="text/javascript">
+		iui.animOn = true;
+	</script>
+	
+	
+</head>
+<body id="index">
+	<div class="toolbar">
+	        <h1 id="pageTitle"></h1>
+	        <a id="backButton" class="button" href="#"></a>
+	        <a class="button" href="#searchForm">Search</a>
+	    </div>
+
+	    <ul id="home" title="Bookr" selected="true">
+	        <li><a href="#titles">Titles</a></li>
+
+	        <li><a href="#settings">Settings</a></li>
+	        <li><a href="stats.php">Stats</a></li>
+	        <li><a href="/bookr/about" target="_self">About</a></li>
+	        <li>Nothing</li>
+	    </ul>
+	
+		<ul id="titles" title="Titles">
+			<% @books.each do |book| %>
+	        <li>
+	        	<a href="#<%= book[:name] %>"><%= book[:name] %></a>
+	        </li>
+			<% end %>
+	    </ul>
+	
+		<form id="searchForm" class="dialog" action="/bookr/search">
+	        <fieldset>
+	            <h1>Book Search</h1>
+	            <a class="button leftButton" type="cancel">Cancel</a>
+	            <a class="button blueButton" type="submit">Search</a>
+
+	            <label>Title:</label>
+	            <input id="title" type="text" name="query"/>
+
+	        </fieldset>
+	    </form>
+	</div>
+</body>
+</html>
