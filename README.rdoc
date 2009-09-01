@@ -1,0 +1,34 @@
+= Bookr -- simple iphone webapp for e-book libraries
+
+This is ideally suited to pdf e-book colletions.  
+
+
+== Usage
+
+  $ gem install sequel sinatra amazon-ecs
+
+Modify environment.rb
+
+Populate the database
+
+  $ rake reload
+
+Scan the library for title names
+
+  $ rake rescan
+
+Run it under Apache using Passenger http://www.modrails.com/
+
+== Requirements
+
+* sinatra
+* amazon-ec2
+* mysql/postgres/sqlite/oracle driver
+
+== Warnings
+
+The rescan task uses the Amazon E-Commerce Services API.
+
+== To Do
+
+* Full-text search

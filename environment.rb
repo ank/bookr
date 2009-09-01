@@ -1,11 +1,11 @@
 require "sequel"
 require "logger"
 
-ROOT = "/path/to/books"
+# Connection string
+DB_URI = "postgres://user:password@host/books"
+BOOK_DIR="/path/to/books/**/*."
 
 # Open a database
-DB = Sequel.connect("postgres://user:password@host/books")
+DB = Sequel.connect(DB_URI)
 
 DB.loggers << Logger.new($stdout)
-
-#Sequel.extension :pagination
