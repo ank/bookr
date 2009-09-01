@@ -2,7 +2,6 @@
 
 This is ideally suited to pdf e-book colletions.  
 
-
 == Usage
 
   $ gem install sequel sinatra amazon-ecs
@@ -27,8 +26,9 @@ Run it under Apache using Passenger http://www.modrails.com/
 
 == Warnings
 
-The rescan task uses the Amazon E-Commerce Services API.
+The rescan task uses the Amazon E-Commerce Services API which allows one 1 req/sec per IP address.  For large collections this may take a long time.  Also the title matching is bad unless the filename is very informative.  YMMV.
 
 == To Do
 
+* Improve title matching
 * Full-text search
