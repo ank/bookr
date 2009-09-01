@@ -9,6 +9,10 @@ Dir["#{APP_ROOT}/lib/**/*.rb"].each { |lib| require lib }
 
 set :root, APP_ROOT
 
+use Rack::Auth::Basic do |username, password|
+  [username, password] == ['admin', 'admin']
+end
+
 post '/search' do
   if params[:q]
     query = params[:q]

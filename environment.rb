@@ -1,7 +1,11 @@
 require "sequel"
 require "logger"
 
-ROOT = "/mnt/arr/eBooks"
-DB = Sequel.connect("postgres://kraut:sqlKRAUT@localhost/books")
+ROOT = "/path/to/books"
+
+# Open a database
+DB = Sequel.connect("postgres://user:password@host/books")
+
 DB.loggers << Logger.new($stdout)
-Sequel.extension :pagination
+
+#Sequel.extension :pagination

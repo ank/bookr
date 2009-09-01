@@ -15,7 +15,7 @@ desc 'reload'
 task :reload => :reset do
   print "Reloading."
   ['pdf', 'chm'].each do |type|
-    books = Dir.glob('/mnt/arr/books/**/*.' + type)
+    books = Dir.glob('/path/to/books/**/*.' + type)
     
     books.each do |f|
       
@@ -41,7 +41,7 @@ end
 desc 'rescan using Amazon'
 task :rescan do
   ['pdf', 'chm'].each do |type|
-    books = Dir.glob('/mnt/arr/books/**/*.' + type)
+    books = Dir.glob('/path/to/books/**/*.' + type)
 
     books.each do |f|
       path = clean(f)
@@ -72,7 +72,7 @@ end
 
 task :fetch do
   type = "pdf"
-  books = Dir.glob('/mnt/arr/books/**/*.' + type)
+  books = Dir.glob('/path/to/books/**/*.' + type)
   item = fetch_item(clean(books[100]))
   puts item.get('itemattributes/title')
   puts item.get('detailpageurl')
